@@ -61,14 +61,11 @@ int calc_accelerate(float dist) {
 }
 
 int calc_turn(float dist) {
-  if (dist > max_distance_turn && dist <= max_distance) {
-    return 255;
-  
-  } else if (dist < min_distance) {
-    return 0;
-  
-  } else {
-    return 128; 
+  if ((dist > max_distance_turn && dist <= max_distance) || (dist < min_distance)) {
+    return 128;
+    
+  } else
+    return 1; 
   }
 }
 
