@@ -37,6 +37,9 @@ void loop(){
   data[0] = calc_accelerate(dist_1);
   data[1] = calc_turn(dist_2);
 
+  Serial.println(dist_1);
+  Serial.println(dist_2);
+
   radio.write(data, 1);
 
   delay(300);
