@@ -37,7 +37,8 @@ void loop(){
   data[0] = calc_accelerate(dist_1);
   data[1] = calc_turn(dist_2);
 
-  radio.write(data, sizeof(data));
+  // send to serial and radio
+  send_all();
 }
 
 float get_distance(Ultrasonic ultra) {
@@ -69,5 +70,10 @@ int calc_turn(float dist) {
   }
 
   return round(value);
+}
+
+boolean send_all() {
+  radio.write(data, sizeof(data));
+  Serial.write(data[0]);
 }
 

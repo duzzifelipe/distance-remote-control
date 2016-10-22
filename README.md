@@ -5,5 +5,7 @@ Tutorial link: http://buildbot.com.br/blog/comunicacao-wireless-com-o-modulo-nrf
 
 http://www.instructables.com/id/Wireless-Remote-Using-24-Ghz-NRF24L01-Simple-Tutor/?ALLSTEPS
 
+http://www.embarcados.com.br/comunicacao-serial-java-arduino/
+
 
 Depends on: https://github.com/maniacbug/RF24
