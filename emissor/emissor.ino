@@ -21,7 +21,7 @@ Ultrasonic ultrasonic_2(ultra_pin_trigger_2, ultra_pin_echo_2);
 RF24 radio(rf_ce,rf_cs);
 
 int data[2];
-const uint64_t pipe = 0xE14BC8F482LL;
+const uint64_t pipe = 0xE8E8F0F0E1LL;
 
 void setup(){
   Serial.begin(9600);
@@ -37,12 +37,7 @@ void loop(){
   data[0] = calc_accelerate(dist_1);
   data[1] = calc_turn(dist_2);
 
-  Serial.println(dist_1);
-  Serial.println(dist_2);
-
-  radio.write(data, 1);
-
-  delay(300);
+  radio.write(data, sizeof(data));
 }
 
 float get_distance(Ultrasonic ultra) {
