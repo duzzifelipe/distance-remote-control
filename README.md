@@ -7,5 +7,7 @@ http://www.instructables.com/id/Wireless-Remote-Using-24-Ghz-NRF24L01-Simple-Tut
 
 http://www.embarcados.com.br/comunicacao-serial-java-arduino/
 
+http://playground.arduino.cc/Interfacing/Java
+
 
 Depends on: https://github.com/maniacbug/RF24
