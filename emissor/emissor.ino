@@ -31,14 +31,14 @@ void setup(){
 }
 
 void loop(){
+  // send to serial and radio
+  send_all();
+  
   float dist_1 = get_distance(ultrasonic_1);
   float dist_2 = get_distance(ultrasonic_2);
   
   data[0] = calc_accelerate(dist_1);
   data[1] = calc_turn(dist_2);
-
-  // send to serial and radio
-  send_all();
 }
 
 float get_distance(Ultrasonic ultra) {
@@ -73,7 +73,8 @@ int calc_turn(float dist) {
 }
 
 boolean send_all() {
-  radio.write(data, sizeof(data));
-  Serial.write(data[0]);
+  //radio.write(data, sizeof(data));
+  Serial.println("p1:" + String(data[0], DEC));
+  Serial.println("p2:" + String(data[1], DEC));
 }
 

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="RXTXcomm">
+    <CLASSES>
+      <root url="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/RXTXcomm.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

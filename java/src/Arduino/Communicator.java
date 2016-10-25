@@ -3,20 +3,25 @@ package Arduino;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+
 import java.util.Enumeration;
 
 
 public class Communicator implements SerialPortEventListener {
     SerialPort serialPort;
-    /** The port we're normally going to use. */
+    /**
+     * The port we're normally going to use.
+     */
     private static final String PORT_NAMES[] = {
             "/dev/tty.usbserial-A9007UX1", // Mac OS X
             "/dev/ttyACM0", // Raspberry Pi
             "/dev/ttyUSB0", // Linux
+            "/dev/ttyUSB1",
             "COM3", // Windows
     };
     /**
@@ -25,17 +30,23 @@ public class Communicator implements SerialPortEventListener {
      * making the displayed results codepage independent
      */
     private BufferedReader input;
-    /** The output stream to the port */
+    /**
+     * The output stream to the port
+     */
     private OutputStream output;
-    /** Milliseconds to block while waiting for port open */
+    /**
+     * Milliseconds to block while waiting for port open
+     */
     private static final int TIME_OUT = 2000;
-    /** Default bits per second for COM port. */
+    /**
+     * Default bits per second for COM port.
+     */
     private static final int DATA_RATE = 9600;
 
     public void initialize() {
         // the next line is for Raspberry Pi and
         // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
-        System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
+        // System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
 
         CommPortIdentifier portId = null;
         Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -95,8 +106,17 @@ public class Communicator implements SerialPortEventListener {
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
             try {
-                String inputLine=input.readLine();
-                System.out.println(inputLine);
+                String inputLine = input.readLine();
+                int value = Integer.parseInt(
+                        inputLine.substring(inputLine.indexOf(":") + 1, inputLine.length()));
+
+                if (inputLine.startsWith("p1:")) {
+                    System.out.println("Porta 1: " + value);
+
+                } else if(inputLine.startsWith("p2:")) {
+                    System.out.println("Porta 2: " + value);
+                }
+
             } catch (Exception e) {
                 System.err.println(e.toString());
             }
