@@ -10,8 +10,8 @@
 #define ultra_pin_echo_2 7
 #define rf_ce 9
 #define rf_cs 10
-#define max_distance_turn 35
-#define max_distance_speed 65
+#define max_distance_turn 50
+#define max_distance_speed 50
 #define min_distance 5
 #define max_value_serial 255
 #define min_value_serial 0
@@ -73,7 +73,7 @@ int calc_turn(float dist) {
 }
 
 boolean send_all() {
-  //radio.write(data, sizeof(data));
+  radio.write(data, sizeof(data));
   Serial.println("p1:" + String(data[0], DEC));
   Serial.println("p2:" + String(data[1], DEC));
 }
