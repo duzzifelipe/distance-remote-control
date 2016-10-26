@@ -114,7 +114,7 @@ public class Communicator implements SerialPortEventListener {
                     System.out.println("Porta 1: " + value);
 
                 } else if(inputLine.startsWith("p2:")) {
-                    System.out.println("Porta 2: " + value);
+                    System.out.println("Porta 2: " + value + "\n");
                 }
 
             } catch (Exception e) {
