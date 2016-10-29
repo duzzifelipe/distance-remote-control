@@ -13,8 +13,6 @@
 #define max_distance_turn 50
 #define max_distance_speed 50
 #define min_distance 5
-#define max_value_serial 255
-#define min_value_serial 0
 
 Ultrasonic ultrasonic_1(ultra_pin_trigger_1, ultra_pin_echo_1);
 Ultrasonic ultrasonic_2(ultra_pin_trigger_2, ultra_pin_echo_2);
@@ -50,23 +48,23 @@ int calc_accelerate(float dist) {
   float value = 0.0f;
   
   if (dist > max_distance_speed || dist < min_distance) {
-    value = min_value_serial;
+    value = 0;
     
   } else {
-    value = (max_value_serial / max_distance_speed) * dist; 
+    value = (255 / max_distance_speed) * dist; 
   }
 
   return round(value);
 }
 
 int calc_turn(float dist) {
-  float value = 0.0f;
+  float value;
   
   if ((dist > max_distance_turn) || (dist < min_distance)) {
-    value = max_value_serial / 2;
+    value = 160 / 2.0f;
     
   } else {
-    value = (max_value_serial / max_distance_turn) * dist; 
+    value = (160 / max_distance_turn) * dist; 
   }
 
   return round(value);
