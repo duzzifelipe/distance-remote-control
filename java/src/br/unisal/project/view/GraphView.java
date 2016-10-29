@@ -3,6 +3,8 @@ package br.unisal.project.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,45 +19,60 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 public class GraphView {
+    private JFrame window;
+    private Communicator comm;
     private XYSeries seriesM;
     private XYSeries seriesV;
+    private XYSeriesCollection dataset;
     private int x = 0;
 
     public GraphView() {
         this.seriesM = new XYSeries("Motor");
         this.seriesV = new XYSeries("Volante");
+        this.comm = new Communicator(this);
+        this.configureWindow();
+        this.configureChart();
     }
 
-    public void main() {
-        JFrame window = new JFrame();
+    private void configureWindow() {
+        window = new JFrame();
         window.setTitle("Gráficos do Sensor");
         window.setSize(600, 400);
         window.setLayout(new BorderLayout());
         window.setExtendedState(window.getExtendedState() | window.MAXIMIZED_BOTH);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.addWindowListener(new WindowAdapter() {
+            public void WindowClosing(WindowEvent e) {
+                comm.close();
+                window.dispose();
+            }
+        });
 
-        JButton connectButton = new JButton("Ligar");
+        JButton clearButton = new JButton("Limpar");
         JPanel topPanel = new JPanel();
-        topPanel.add(connectButton);
+        topPanel.add(clearButton);
         window.add(topPanel, BorderLayout.NORTH);
 
-        XYSeriesCollection dataset = new XYSeriesCollection();
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dataset.getSeries(0).clear();
+                dataset.getSeries(1).clear();
+            }
+        });
+    }
+
+    private void configureChart() {
+        dataset = new XYSeriesCollection();
         dataset.addSeries(this.seriesM);
         dataset.addSeries(this.seriesV);
 
         JFreeChart chart = ChartFactory.createXYLineChart("Dados do Controle", "Tempo (segundos)", "Valor", dataset);
         window.add(new ChartPanel(chart), BorderLayout.CENTER);
+    }
 
-        Communicator comm = new Communicator(this);
+    public void start() {
         comm.initialize();
-        Thread t = new Thread() {
-            public void run() {
-                try {Thread.sleep(1000000);} catch (InterruptedException ie) {}
-            }
-        };
-        t.start();
-
-        // show the window
         window.setVisible(true);
     }
 
