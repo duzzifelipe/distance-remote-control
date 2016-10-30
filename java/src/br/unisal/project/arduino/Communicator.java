@@ -1,6 +1,7 @@
 package br.unisal.project.arduino;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
@@ -74,6 +75,7 @@ public class Communicator implements SerialPortEventListener {
             // add event listeners
             serialPort.addEventListener(this);
             serialPort.notifyOnDataAvailable(true);
+
         } catch (Exception e) {
             System.err.println(e.toString());
         }
@@ -105,6 +107,16 @@ public class Communicator implements SerialPortEventListener {
             } catch (Exception e) {
                 System.err.println(e.toString());
             }
+        }
+    }
+
+    public boolean send(int value) {
+        try {
+            output.write(value);
+            return true;
+
+        } catch (IOException e) {
+            return false;
         }
     }
 }

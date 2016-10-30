@@ -25,6 +25,7 @@ public class GraphView {
     private XYSeries seriesV;
     private XYSeriesCollection dataset;
     private int x = 0;
+    private int direction = 1;
 
     public GraphView() {
         this.seriesM = new XYSeries("Motor");
@@ -49,8 +50,10 @@ public class GraphView {
         });
 
         JButton clearButton = new JButton("Limpar");
+        JButton revertButton = new JButton("Mudar para Ré");
         JPanel topPanel = new JPanel();
         topPanel.add(clearButton);
+        topPanel.add(revertButton);
         window.add(topPanel, BorderLayout.NORTH);
 
         clearButton.addActionListener(new ActionListener() {
@@ -58,6 +61,22 @@ public class GraphView {
             public void actionPerformed(ActionEvent e) {
                 dataset.getSeries(0).clear();
                 dataset.getSeries(1).clear();
+            }
+        });
+
+        revertButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (direction == 1) {
+                    comm.send(0);
+                    direction = 0;
+                    revertButton.setText("Mudar para frente");
+
+                } else {
+                    comm.send(1);
+                    direction = 1;
+                    revertButton.setText("Mudar para Ré");
+                }
             }
         });
     }
