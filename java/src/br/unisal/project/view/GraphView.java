@@ -24,7 +24,9 @@ public class GraphView {
     private XYSeries seriesM;
     private XYSeries seriesV;
     private XYSeriesCollection dataset;
-    private int x = 0;
+    private double x = 0;
+    private int m = 0;
+    private int v = 0;
     private int direction = 1;
 
     public GraphView() {
@@ -33,6 +35,7 @@ public class GraphView {
         this.comm = new Communicator(this);
         this.configureWindow();
         this.configureChart();
+        this.chartListener();
     }
 
     private void configureWindow() {
@@ -90,18 +93,40 @@ public class GraphView {
         window.add(new ChartPanel(chart), BorderLayout.CENTER);
     }
 
+    private void chartListener() {
+        Thread t = new Thread() {
+            public void run() {
+                try {
+                    while(true) {
+                        seriesM.add(x, m);
+                        seriesV.add(x, v);
+                        System.out.println(x);
+                        x += 0.5;
+                        Thread.sleep(500);
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        t.start();
+    }
+
     public void start() {
         comm.initialize();
         window.setVisible(true);
     }
 
     public void drawMotor(int value) {
-        this.seriesM.add(this.x/2, value);
-        this.x++;
+        this.m = value;
+        //this.seriesM.add(this.x/2, value);
+        //this.x++;
     }
 
     public void drawWheel(int value) {
-        this.seriesV.add(this.x/2, value);
-        this.x++;
+        this.v = value;
+        //this.seriesV.add(this.x/2, value);
+        //this.x++;
     }
 }
