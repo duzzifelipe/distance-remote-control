@@ -22,6 +22,7 @@ int data[3];
 const uint64_t pipe = 0xE8E8F0F0E1LL;
 
 void setup(){
+  data[2] = 1; // starts with forward
   Serial.begin(9600);
   Serial.println("Reading sensors data...");
   radio.begin();

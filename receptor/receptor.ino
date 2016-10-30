@@ -7,7 +7,7 @@
 
 RF24 radio(rf_ce,rf_cs);
 
-int data[2];
+int data[3];
 const uint64_t pipe = 0xE8E8F0F0E1LL;
 
 void setup(){
@@ -26,6 +26,7 @@ void loop() {
       done = radio.read(data, sizeof(data));
       Serial.print("Acelerador: ");
       Serial.println(data[0]);
+      Serial.println(data[2]);
       Serial.print("Direcao: ");
       Serial.println(data[1]);
     }
