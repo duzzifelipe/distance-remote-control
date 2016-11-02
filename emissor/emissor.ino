@@ -20,10 +20,11 @@ RF24 radio(rf_ce,rf_cs);
 
 int data[3];
 const uint64_t pipe = 0xE8E8F0F0E1LL;
+long previous = 0;
 
 void setup(){
   data[2] = 1; // starts with forward
-  Serial.begin(9600);
+  Serial.begin(57600);
   radio.begin();
   radio.openWritingPipe(pipe);
   send_all();
@@ -31,7 +32,13 @@ void setup(){
 
 void loop(){
   // send to serial and radio
-  send_all();
+  unsigned long currentTime = millis();
+  if (currentTime - previous >= 500) {
+    // send
+    send_all(); 
+    // save time
+    previous = currentTime;
+  }
 
   // receive serial
   read_serial();
@@ -41,8 +48,6 @@ void loop(){
   
   data[0] = calc_accelerate(dist_1);
   data[1] = calc_turn(dist_2);
-
-  delay(100);
 }
 
 float get_distance(Ultrasonic ultra) {
@@ -67,7 +72,7 @@ int calc_turn(float dist) {
   float value;
   
   if ((dist > max_distance_turn) || (dist < min_distance)) {
-    value = 160 / 2.0f;
+    value = 80; // 160/2
     
   } else {
     value = (160 / max_distance_turn) * dist; 

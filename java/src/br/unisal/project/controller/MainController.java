@@ -26,8 +26,8 @@ public class MainController extends Controller implements ControllerInterface {
                     while(true) {
                         view.drawMotor(timer, motor);
                         view.drawWheel(timer, wheel);
-                        timer += 0.5;
-                        Thread.sleep(500);
+                        timer += 0.25;
+                        Thread.sleep(250);
                     }
 
                 } catch (InterruptedException e) {

@@ -28,7 +28,7 @@ public class Communicator implements SerialPortEventListener {
     private BufferedReader input;
     private OutputStream output;
     private static final int TIME_OUT = 2000;
-    private static final int DATA_RATE = 9600;
+    private static final int DATA_RATE = 57600;
     private Controller controller;
 
     public Communicator(Controller controller) {
