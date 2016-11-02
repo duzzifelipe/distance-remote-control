@@ -24,9 +24,9 @@ const uint64_t pipe = 0xE8E8F0F0E1LL;
 void setup(){
   data[2] = 1; // starts with forward
   Serial.begin(9600);
-  Serial.println("Reading sensors data...");
   radio.begin();
   radio.openWritingPipe(pipe);
+  send_all();
 }
 
 void loop(){
@@ -41,6 +41,8 @@ void loop(){
   
   data[0] = calc_accelerate(dist_1);
   data[1] = calc_turn(dist_2);
+
+  delay(100);
 }
 
 float get_distance(Ultrasonic ultra) {

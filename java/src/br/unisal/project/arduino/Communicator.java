@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import br.unisal.project.view.GraphView;
+import br.unisal.project.controller.Controller;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
@@ -29,10 +29,10 @@ public class Communicator implements SerialPortEventListener {
     private OutputStream output;
     private static final int TIME_OUT = 2000;
     private static final int DATA_RATE = 9600;
-    private GraphView view;
+    private Controller controller;
 
-    public Communicator(GraphView view) {
-        this.view = view;
+    public Communicator(Controller controller) {
+        this.controller = controller;
     }
 
     public void initialize() {
@@ -96,12 +96,12 @@ public class Communicator implements SerialPortEventListener {
                         inputLine.substring(inputLine.indexOf(":") + 1, inputLine.length()));
 
                 if (inputLine.startsWith("p1:")) {
-                    System.out.println("Porta 1: " + value);
-                    this.view.drawMotor(value);
+                    // System.out.println("Porta 1: " + value);
+                    this.controller.setMotor(value);
 
                 } else if(inputLine.startsWith("p2:")) {
-                    System.out.println("Porta 2: " + value + "\n");
-                    this.view.drawWheel(value);
+                    // System.out.println("Porta 2: " + value + "\n");
+                    this.controller.setWheel(value);
                 }
 
             } catch (Exception e) {
