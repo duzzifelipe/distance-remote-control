@@ -89,9 +89,17 @@ public class GraphView {
 
     public void drawMotor(double time, int value) {
         this.seriesM.add(time, value);
+        this.clearOld(this.seriesM);
     }
 
     public void drawWheel(double time, int value) {
         this.seriesW.add(time, value);
+        this.clearOld(this.seriesW);
+    }
+
+    private void clearOld(XYSeries series) {
+        if (series.getItemCount() > 100) {
+            series.remove(0);
+        }
     }
 }
