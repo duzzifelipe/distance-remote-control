@@ -10,9 +10,10 @@
 #define ultra_pin_echo_2 7
 #define rf_ce 9
 #define rf_cs 10
-#define max_distance_turn 50
-#define max_distance_speed 50
-#define min_distance 5
+
+float max_distance_turn = 50.0f;
+float max_distance_speed = 50.0f;
+float min_distance = 5.0f;
 
 Ultrasonic ultrasonic_1(ultra_pin_trigger_1, ultra_pin_echo_1);
 Ultrasonic ultrasonic_2(ultra_pin_trigger_2, ultra_pin_echo_2);
@@ -59,10 +60,10 @@ int calc_accelerate(float dist) {
   float value = 0.0f;
   
   if (dist > max_distance_speed || dist < min_distance) {
-    value = 0;
+    value = 0.0f;
     
   } else {
-    value = (255 / max_distance_speed) * dist; 
+    value = (255.0f / max_distance_speed) * dist; 
   }
 
   return round(value);
@@ -72,10 +73,17 @@ int calc_turn(float dist) {
   float value;
   
   if ((dist > max_distance_turn) || (dist < min_distance)) {
-    value = 80; // 160/2
+    value = 90.0f;
     
   } else {
-    value = (160 / max_distance_turn) * dist; 
+    value = (180.0f / max_distance_turn) * dist; 
+  }
+
+  // Limit max value
+  if (value < 20.0f) {
+    value = 20.0f;
+  } else if (value > 160.0f) {
+    value = 160.0f;
   }
 
   return round(value);
