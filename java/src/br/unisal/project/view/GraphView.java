@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import br.unisal.project.controller.Controller;
+import br.unisal.project.controller.MainController;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -17,14 +17,14 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 public class GraphView {
-    private Controller controller;
+    private MainController controller;
     private JFrame window;
     private XYSeries seriesM;
     private XYSeries seriesW;
     private XYSeriesCollection dataset;
     private int direction = 1;
 
-    public GraphView(Controller controller) {
+    public GraphView(MainController controller) {
         this.controller = controller;
         this.seriesM = new XYSeries("Motor");
         this.seriesW = new XYSeries("Volante");
@@ -48,9 +48,11 @@ public class GraphView {
 
         JButton clearButton = new JButton("Limpar");
         JButton revertButton = new JButton("Mudar para Ré");
+        JButton exportButton = new JButton("Exportar");
         JPanel topPanel = new JPanel();
         topPanel.add(clearButton);
         topPanel.add(revertButton);
+        topPanel.add(exportButton);
         window.add(topPanel, BorderLayout.NORTH);
 
         clearButton.addActionListener(new ActionListener() {
@@ -70,6 +72,13 @@ public class GraphView {
                 } else {
                     revertButton.setText("Mudar para frente");
                 }
+            }
+        });
+
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.openExport();
             }
         });
     }

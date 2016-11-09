@@ -3,9 +3,10 @@ package br.unisal.project.controller;
 import br.unisal.project.arduino.Communicator;
 import br.unisal.project.view.GraphView;
 
-public class MainController extends Controller implements ControllerInterface {
+public class MainController implements ControllerInterface {
     private Communicator comm;
     private GraphView view;
+    private ExportController export;
     private int motor;
     private int wheel;
     private int direction = 1;
@@ -14,6 +15,7 @@ public class MainController extends Controller implements ControllerInterface {
     public MainController() {
         view = new GraphView(this);
         comm = new Communicator(this);
+        export = new ExportController();
         comm.initialize();
         chartListener();
         view.setVisible(true);
@@ -36,6 +38,10 @@ public class MainController extends Controller implements ControllerInterface {
             }
         };
         t.start();
+    }
+
+    public void openExport() {
+        export.setVisible(true);
     }
 
     public int toggleDirection() {

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import br.unisal.project.controller.Controller;
+import br.unisal.project.controller.MainController;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
@@ -29,9 +29,9 @@ public class Communicator implements SerialPortEventListener {
     private OutputStream output;
     private static final int TIME_OUT = 2000;
     private static final int DATA_RATE = 57600;
-    private Controller controller;
+    private MainController controller;
 
-    public Communicator(Controller controller) {
+    public Communicator(MainController controller) {
         this.controller = controller;
     }
 
