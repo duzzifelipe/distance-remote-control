@@ -1,12 +1,19 @@
 package br.unisal.project.view;
 
+import br.unisal.project.controller.ExportController;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ExportView extends javax.swing.JFrame {
+    private ExportController controller;
 
-    /**
-     * Creates new form ExportView
-     */
+    public ExportView(ExportController controller) {
+        this.controller = controller;
+        initComponents();
+    }
+
     public ExportView() {
         initComponents();
     }
@@ -33,6 +40,16 @@ public class ExportView extends javax.swing.JFrame {
         dadosComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dadosComboBoxActionPerformed(evt);
+            }
+        });
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (controller.export(dadosComboBox.getSelectedIndex())) {
+                    JOptionPane.showMessageDialog(null, "Dados exportados com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Falha ao exportar dados :(");
+                }
             }
         });
 

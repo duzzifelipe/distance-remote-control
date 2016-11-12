@@ -16,8 +16,8 @@ public class JDBCConnector {
 
         connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost/remote_control",
-                "root",
-                ""
+                "duzzifelipe",
+                "casca2"
         );
 
         return connection;

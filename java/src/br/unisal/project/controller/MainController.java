@@ -2,6 +2,7 @@ package br.unisal.project.controller;
 
 import br.unisal.project.arduino.Communicator;
 import br.unisal.project.view.GraphView;
+import org.jfree.data.xy.XYSeries;
 
 public class MainController implements ControllerInterface {
     private Communicator comm;
@@ -15,7 +16,7 @@ public class MainController implements ControllerInterface {
     public MainController() {
         view = new GraphView(this);
         comm = new Communicator(this);
-        export = new ExportController();
+        export = new ExportController(this);
         comm.initialize();
         chartListener();
         view.setVisible(true);
@@ -58,6 +59,14 @@ public class MainController implements ControllerInterface {
 
     public int getDirection() {
         return direction;
+    }
+
+    public XYSeries getMotor() {
+        return view.getSeriesM();
+    }
+
+    public XYSeries getWheel() {
+        return view.getSeriesW();
     }
 
     @Override

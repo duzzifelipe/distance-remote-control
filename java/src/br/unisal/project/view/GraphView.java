@@ -96,6 +96,14 @@ public class GraphView {
         window.setVisible(visible);
     }
 
+    public XYSeries getSeriesM() {
+        return seriesM;
+    }
+
+    public XYSeries getSeriesW() {
+        return seriesW;
+    }
+
     public void drawMotor(double time, int value) {
         this.seriesM.add(time, value);
         this.clearOld(this.seriesM);
