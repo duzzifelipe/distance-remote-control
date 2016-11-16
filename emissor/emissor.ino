@@ -28,6 +28,9 @@ void setup(){
   Serial.begin(57600);
   radio.begin();
   radio.openWritingPipe(pipe);
+  radio.setPALevel(RF24_PA_MAX);
+  radio.setDataRate(RF24_250KBPS);
+  radio.setChannel(108);
   send_all();
 }
 
