@@ -37,7 +37,7 @@ void setup(){
 void loop(){
   // send to serial and radio
   unsigned long currentTime = millis();
-  if (currentTime - previous >= 500) {
+  if (currentTime - previous >= 250) {
     // send
     send_all(); 
     // save time

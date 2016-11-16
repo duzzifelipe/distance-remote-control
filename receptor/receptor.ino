@@ -38,35 +38,28 @@ void loop() {
     bool done = false;    
     while (!done) {
       done = radio.read(data, sizeof(data));
-      setMotor(data[0]);
-      setWheel(data[1]);
-      setWay(data[2]);
+      
+      analogWrite(pin_motor, data[0]);
+      wheel.write(data[1]);
+
+      if (data[2] == 1) {
+        digitalWrite(pin_way, HIGH);
+  
+      } else {
+        digitalWrite(pin_way, LOW); 
+      }
+      
+      Serial.println("");
     }
   } else {
-    defaultValues();
-  }
-}
-
-void setMotor(int value) {
-  analogWrite(pin_motor, value);
-}
-
-void setWheel(int value) {
-  wheel.write(value);
-}
-
-void setWay(int value) {
-  if (value == 1) {
-    digitalWrite(pin_way, HIGH);
-  
-  } else {
-    digitalWrite(pin_way, LOW); 
+    //Serial.println("waiting");
+    // defaultValues();
   }
 }
 
 void defaultValues() {
   digitalWrite(pin_way, LOW);
-  analogWrite(pin_motor, 0);
+  analogWrite(pin_motor, 1);
   wheel.write(90);
 }
 
