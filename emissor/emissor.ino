@@ -12,11 +12,13 @@
 #define rf_cs 10
 
 float max_distance_turn = 50.0f;
+float time_out_turn = (max_distance_turn * 1.025f) * 58;
 float max_distance_speed = 50.0f;
+float time_out_speed = (max_distance_speed * 1.025f) * 58;
 float min_distance = 5.0f;
 
-Ultrasonic ultrasonic_1(ultra_pin_trigger_1, ultra_pin_echo_1);
-Ultrasonic ultrasonic_2(ultra_pin_trigger_2, ultra_pin_echo_2);
+Ultrasonic ultrasonic_1(ultra_pin_trigger_1, ultra_pin_echo_1, time_out_turn);
+Ultrasonic ultrasonic_2(ultra_pin_trigger_2, ultra_pin_echo_2, time_out_speed);
 RF24 radio(rf_ce,rf_cs);
 
 int data[3];
@@ -29,20 +31,20 @@ void setup(){
   radio.begin();
   radio.openWritingPipe(pipe);
   radio.setPALevel(RF24_PA_MAX);
-  // radio.setDataRate(RF24_250KBPS);
+  radio.setDataRate(RF24_250KBPS);
   radio.setChannel(108);
   send_all();
 }
 
 void loop(){
   // send to serial and radio
-  unsigned long currentTime = millis();
-  if (currentTime - previous >= 250) {
+  // unsigned long currentTime = millis();
+  // if (currentTime - previous >= 250) {
     // send
     send_all(); 
     // save time
-    previous = currentTime;
-  }
+    // previous = currentTime;
+  // }
 
   // receive serial
   read_serial();
@@ -55,8 +57,9 @@ void loop(){
 }
 
 float get_distance(Ultrasonic ultra) {
-  long microsec = ultra.timing();
-  return ultra.convert(microsec, Ultrasonic::CM);
+  // long microsec = ultra.timing();
+  // return ultra.convert(microsec, Ultrasonic::CM);
+  return ultra.Ranging(CM);
 }
 
 int calc_accelerate(float dist) {
