@@ -648,11 +648,12 @@
       <workItem from="1479061147989" duration="197000" />
       <workItem from="1479338806347" duration="230000" />
       <workItem from="1479339417900" duration="765000" />
+      <workItem from="1479573868497" duration="384000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40378000" />
+    <option name="totallyTimeSpent" value="40762000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="51" y="24" width="1315" height="744" extended-state="6" />
@@ -909,8 +910,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/br/unisal/project/controller/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
+        <state relative-caret-position="159">
           <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+          <folding>
+            <element signature="e#722#1171#0" expanded="true" />
+            <element signature="e#1170#1171#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

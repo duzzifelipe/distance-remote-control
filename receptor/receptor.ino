@@ -43,10 +43,10 @@ void loop() {
       wheel.write(data[1]);
 
       if (data[2] == 1) {
-        digitalWrite(pin_way, HIGH);
+        digitalWrite(pin_way, LOW);
   
       } else {
-        digitalWrite(pin_way, LOW); 
+        digitalWrite(pin_way, HIGH); 
       }
       
       Serial.println("");
