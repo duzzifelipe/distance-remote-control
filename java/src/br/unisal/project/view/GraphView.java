@@ -115,7 +115,7 @@ public class GraphView {
     }
 
     private void clearOld(XYSeries series) {
-        if (series.getItemCount() > 100) {
+        if (series.getItemCount() > 300) {
             series.remove(0);
         }
     }
