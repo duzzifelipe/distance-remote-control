@@ -38,13 +38,16 @@ void setup(){
 
 void loop(){
   // send to serial and radio
-  // unsigned long currentTime = millis();
-  // if (currentTime - previous >= 250) {
+  unsigned long currentTime = millis();
+  if (currentTime - previous >= 250) {
     // send
-    send_all(); 
+    send_serial(); 
     // save time
-    // previous = currentTime;
-  // }
+    previous = currentTime;
+  }
+
+  // send radio
+  send_radio();
 
   // receive serial
   read_serial();
@@ -96,10 +99,24 @@ int calc_turn(float dist) {
 }
 
 boolean send_all() {
+  boolean sr = send_radio();
+  boolean ss = send_serial();
+
+  return sr && ss;
+}
+
+boolean send_radio() {
   radio.write(data, sizeof(data));
+  
+  return true;
+}
+
+boolean send_serial() {
   Serial.println("p1:" + String(data[0], DEC));
   Serial.println("p2:" + String(data[1], DEC));
   Serial.println("d:" + String(data[2], DEC));
+  
+  return true;
 }
 
 void read_serial() {
